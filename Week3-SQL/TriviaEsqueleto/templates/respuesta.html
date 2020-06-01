@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="text-align: center;">
+<h1 >
+{% if respuesta.answer %}
+<div style="color: green;">Correcto!</div>
+{% else %}
+<div style="color: red;">Incorrecto</div>
+{% endif %}
+</h1>
+<a href="/trivia/categorias">Volver a intentar</a>
+</div>
+{% endblock%}
