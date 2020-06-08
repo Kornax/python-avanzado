@@ -3,10 +3,13 @@ from apptrivia import app
 import random
 import datetime
 
-# importamos los modelos a usar
-from models.models import Categoria, Pregunta, Respuesta
+#Para el formulario
+from forms.login import LoginForm
 
-from flask import render_template, session, redirect, url_for
+# importamos los modelos a usar
+from models.models import Categoria, Pregunta, Respuesta, Usuario
+
+from flask import render_template, session, redirect, url_for, flash
 
 
 @app.route('/trivia')
@@ -49,3 +52,22 @@ def mostrarRespuesta(id_categoria, id_pregunta, id_respuesta):
 def winner():
     time = datetime.datetime.now() - session['startTime']
     return render_template('winner.html' , time = time)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        flash('Login requested for user {}, remember_me={}'.format(
+            form.username.data, form.remember_me.data))
+        user = Usuario.query.filter_by(email=user.username.data)[0]
+        if user and user.check_password(user.password.data):        
+            flash('Login Successful for user {}'.format(
+                form.username.data))
+        return redirect('/login')
+
+    # Limpiando los campos antes. Entra aca la 1era vez o si no valida el form.
+    form.username.data=""
+    form.password.data = ""
+    form.remember_me.date = False
+    return render_template('login.html', form=form)

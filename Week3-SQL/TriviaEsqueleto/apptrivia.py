@@ -15,12 +15,13 @@ db = SQLAlchemy(app)
 
 # rutas disponibles
 from routes import *
-from models.models import Categoria, Pregunta, Respuesta
+from models.models import Categoria, Pregunta, Respuesta, Usuario
 
 # los modelos que queremos mostrar en el admin
 admin.add_view(ModelView(Categoria, db.session))
 admin.add_view(ModelView(Pregunta, db.session))
 admin.add_view(ModelView(Respuesta, db.session))
+admin.add_view(ModelView(Usuario, db.session))
 
 # subimos el server (solo cuando se llama directamente a este archivo)
 if __name__ == '__main__':
