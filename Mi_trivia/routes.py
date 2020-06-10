@@ -65,7 +65,9 @@ def mostrarRespuesta(id_categoria, id_pregunta, id_respuesta):
 @app.route('/trivia/winner')
 @login_required
 def winner():
-    time = datetime.datetime.now() - session['startTime']
+    time = datetime.datetime.now() - session.pop('startTime', None)
+    bestTime = BestTime(usuario_id=1,time_seconds=time.total_seconds(), date=datetime.datetime.now())
+    bestTime.save()
     return render_template('winner.html' , time = time)
 
 
