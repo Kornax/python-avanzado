@@ -30,7 +30,7 @@ r_mundial3 = Respuesta(text="Estados Unidos", answer=False, pregunta = q_mundial
 
 #Usuario
 u_ernesto = Usuario(name="ernesto", email="jeabreugentini@gmial.com", is_admin=True)
-u_ernesto.set_password("12345")
+u_ernesto.set_password("aguanteDieste47")
 
 db.session.add(c_geogra)
 db.session.add(c_deporte)
