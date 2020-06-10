@@ -2,7 +2,7 @@
 from apptrivia import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
-
+import datetime
 
 class Categoria(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -30,10 +30,11 @@ class Respuesta(db.Model):
 
 class Usuario(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), nullable=False)
+    name = db.Column(db.String(64), unique=True, nullable=False)
     email = db.Column(db.String(64), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
     is_admin = db.Column(db.Boolean)
+    tiempos = db.relationship('BestTime', backref='usuario', lazy='dynamic')
     
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -56,3 +57,22 @@ class Usuario(db.Model, UserMixin):
     @staticmethod
     def get_by_email(email):
         return Usuario.query.filter_by(email=email).first()
+
+class BestTime(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    usuario_id = db.Column(db.Integer, db.ForeignKey('usuario.id'))
+    time_seconds = db.Column(db.Integer, nullable=False)
+    date = db.Column(db.Date, nullable=False)
+    def __repr__(self):
+        return '<Best Time %s>' % self.usuario_id
+
+    def save(self):
+        if not self.id:
+            db.session.add(self)
+        db.session.commit()
+    
+    def usuario_name(self):
+        return Usuario.query.filter_by(id=self.usuario_id)[0].name
+    
+    def time(self):
+        return str(datetime.timedelta(seconds=self.time_seconds))

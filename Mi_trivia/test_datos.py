@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from apptrivia import db
-from models.models import Categoria, Pregunta, Respuesta, Usuario
+from models.models import Categoria, Pregunta, Respuesta, Usuario, BestTime
 
 db.drop_all()
 db.create_all()

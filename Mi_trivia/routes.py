@@ -8,15 +8,19 @@ from flask_login import current_user, login_user, login_required, logout_user, L
 # para poder usar Flask-Login
 login_manager = LoginManager(app)
 
+#Para la excepciones
+from werkzeug.exceptions import HTTPException
+
+
 
 #Para el formulario
 from forms.login import LoginForm
 from forms.register import RegisterForm
 
 # importamos los modelos a usar
-from models.models import Categoria, Pregunta, Respuesta, Usuario
+from models.models import Categoria, Pregunta, Respuesta, Usuario, BestTime
 
-from flask import render_template, session, redirect, url_for, flash
+from flask import render_template, session, redirect, url_for, flash, jsonify
 
 
 @app.route('/trivia')
@@ -115,3 +119,32 @@ def register():
             login_user(user, remember=True)
             return redirect(url_for('index'))
     return render_template("register.html", form=form)
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+#Errores
+
+@app.errorhandler(404)
+def page_not_found(e):
+    #return jsonify(error=str(e)), 404
+    return render_template('404.html')
+
+
+@app.errorhandler(401)
+def unathorized(e):
+    return jsonify(error=str(e)), 404
+
+
+@app.errorhandler(HTTPException)
+def handle_exception(e):
+    return jsonify(error=str(e)), e.code
+
+#Rankings
+@app.route("/rankings")
+def rankings():
+    bestTime = BestTime.query.all()
+    return render_template("ranking.html", bestTime=bestTime)

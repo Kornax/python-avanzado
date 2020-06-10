@@ -1,6 +1,17 @@
 <!-- <link rel="stylesheet" href="estilo.css">
 -->
-<div class="cabezal"> Trivia: <a href="/trivia">Inicio</a>
+<div class="cabezal"> 
+  <div>
+    Trivia: 
+    <a href="{{ url_for('index') }}">Inicio</a>
+  </div>
+  <div>
+    {% if current_user.is_anonymous %}
+    <a href="{{ url_for('login') }}">Iniciar sesión</a>
+    {% else %}
+    <a href="{{ url_for('logout') }}">Cerrar sesión</a> Usuario {{ current_user.name }}
+    {% endif %}
+  </div>
 </div>
 <hr>
 <ul>
@@ -9,7 +20,6 @@
 {% endfor %}
 </ul>
 {% block content %}{% endblock %}
-
 
 
 <style>
@@ -24,6 +34,8 @@ background: -o-linear-gradient(left, rgba(147,206,222,1) 0%, rgba(115,227,255,1)
 background: -ms-linear-gradient(left, rgba(147,206,222,1) 0%, rgba(115,227,255,1) 53%, rgba(224,248,255,1) 100%);
 background: linear-gradient(to right, rgba(147,206,222,1) 0%, rgba(115,227,255,1) 53%, rgba(224,248,255,1) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#93cede', endColorstr='#e0f8ff', GradientType=1 );
+display: flex;
+flex-direction: column;
 
 padding: 10px;
 margin: 10px;
