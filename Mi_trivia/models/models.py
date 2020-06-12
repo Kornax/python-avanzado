@@ -67,11 +67,11 @@ class BestTime(db.Model):
         return '<Best Time %s>' % self.usuario_id
 
     def save(self):
-        besTime = BestTime.query.filter_by(usuario_id=self.usuario_id).first()
-        if besTime:
-            besTime.time_seconds = self.time_seconds
-            besTime.date = self.date
-        elif not self.id:
+        bestTime = BestTime.query.filter_by(usuario_id=self.usuario_id).first()
+        if bestTime and bestTime.time_seconds > self.time_seconds:
+            bestTime.time_seconds = self.time_seconds
+            bestTime.date = self.date
+        elif not bestTime:
             db.session.add(self)
         db.session.commit()
     
