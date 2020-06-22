@@ -76,7 +76,7 @@ class BestTime(db.Model):
         db.session.commit()
     
     def usuario_name(self):
-        return Usuario.query.filter_by(id=self.usuario_id)[0].name
+        return Usuario.query.filter_by(id=self.usuario_id).first().name
     
     def time(self):
         return str(datetime.timedelta(seconds=self.time_seconds))

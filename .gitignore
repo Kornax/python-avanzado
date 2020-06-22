@@ -1,4 +1,5 @@
-env
-.vscode
-.idea
-*/.git
+env/
+.vscode/
+.idea/
+*/.git/
+__pycache__/
