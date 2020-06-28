@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Trivia</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <!-- Image and text -->
+    <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <img src="images/navbar_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+      Python Avanzado
+    </a>
+    <div>
+        <button type="button" class="btn btn-primary"><a href="{{ url_for('public.index_trivia') }}">Inicio</a></button>
+        {% if current_user.is_anonymous %}
+        <button type="button" class="btn btn-primary"><a href="{{ url_for('auth.login') }}">Iniciar sesión</a>
+        {% else %}
+        <button type="button" class="btn btn-primary"><a href="{{ url_for('auth.logout') }}">Cerrar sesión</a></button>  {{ current_user.name }}
+        {% endif %}
+
+    </div>
+  </nav>
+
+        <hr>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <ul>
+              {% for message in messages %}
+              <li>{{ message }}</li>
+              {% endfor %}
+          </ul>
+          {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>

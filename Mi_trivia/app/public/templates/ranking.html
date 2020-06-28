@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<table>
+    <tr>
+        <th>Usuario</th>
+        <th>Tiempo</th>
+        <th>Fecha</th>
+    </tr>
+{% for bt in bestTime %}
+    <tr>
+        <th>{{ bt.usuario_name() }}</th>
+        <th>{{ bt.time() }}</th>
+        <th>{{ bt.date }}</th>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}
