@@ -1,7 +1,7 @@
 # app/public/routes.py
 
 from app import login_required, current_user
-from flask import render_template, session
+from flask import render_template, session, redirect, url_for
 from . import public_bp
 from .models import Categoria, Pregunta, Respuesta, BestTime
 import random
@@ -34,8 +34,8 @@ def mostrarpregunta(id_categoria):
 @public_bp.route('/trivia/<int:id_categoria>/<int:id_pregunta>/respuesta/<int:id_respuesta>', methods=['GET'])
 @login_required
 def mostrarRespuesta(id_categoria, id_pregunta, id_respuesta):
-    respuesta = Respuesta.query.filter_by(id=id_respuesta)[0]
-    if str(id_categoria) not in session:
+    respuesta = Respuesta.query.filter_by(id=id_respuesta).first()
+    if str(id_categoria) not in session and respuesta.answer:
         session[str(id_categoria)] = respuesta.answer
     categorias = [str(c.id) for c in Categoria.query.all()]
     categoriasAnswers = [session[i] for i in categorias if i in session]

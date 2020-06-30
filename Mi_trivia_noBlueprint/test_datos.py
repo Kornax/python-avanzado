@@ -18,7 +18,7 @@ q_mundial = Pregunta(text="¿En qué país se jugó la Copa del Mundo de 1962?",
 #Respuestas de Laos
 r_Laos1 = Respuesta(text="Vientiane", answer=True, pregunta = q_Laos)
 r_Laos2 = Respuesta(text="Oslo", answer=False,  pregunta = q_Laos)
-r_Laos3 = Respuesta(text="Barcelona", answer=True, pregunta = q_Laos)
+r_Laos3 = Respuesta(text="Barcelona", answer=False, pregunta = q_Laos)
 #Respuestas de Armenia
 r_Armenia1 = Respuesta(text="3 millones", answer=True,  pregunta = q_Armenia)
 r_Armenia2 = Respuesta(text="45 millones", answer=False,  pregunta = q_Armenia)

@@ -6,16 +6,20 @@
     <body>
         <!-- Image and text -->
     <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-      <img src="images/navbar_icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
-      Python Avanzado
+    <a class="navbar-brand">
+      <img src="https://futura.antel.com.uy/pluginfile.php/1/theme_adaptable/logo/1593192953/logo%20futura%20blanco.png"  height="30" class="d-inline-block align-top" alt="">
+      Python Avanzado   
     </a>
     <div>
-        <button type="button" class="btn btn-primary"><a href="{{ url_for('public.index_trivia') }}">Inicio</a></button>
+        <button type="button" class="btn btn-primary"><a href="{{ url_for('public.rankings') }}" style="color: white;">Rankings</a></button>
+    </div>
+    <div>
+        <button type="button" class="btn btn-primary"><a href="{{ url_for('public.index_trivia') }}" style="color: white;">Inicio</a></button>
         {% if current_user.is_anonymous %}
-        <button type="button" class="btn btn-primary"><a href="{{ url_for('auth.login') }}">Iniciar sesión</a>
+        <button type="button" class="btn btn-primary"><a href="{{ url_for('auth.login') }}" style="color: white;">Iniciar sesión</a></button>
+        <button type="button" class="btn btn-primary"><a href="{{ url_for('auth.register') }}" style="color: white;">Registrarse</a></button>
         {% else %}
-        <button type="button" class="btn btn-primary"><a href="{{ url_for('auth.logout') }}">Cerrar sesión</a></button>  {{ current_user.name }}
+        <button type="button" class="btn btn-primary"><a href="{{ url_for('auth.logout') }}" style="color: white;">Cerrar sesión</a></button>  {{ current_user.name }}
         {% endif %}
 
     </div>
